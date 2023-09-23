@@ -11,13 +11,17 @@ import { AppComponent } from './app.component';
 import { ListarFilmesComponent } from './views/listar-filmes/listar-filmes.component';
 import { DetalhesFilmeComponent } from './views/detalhes-filme/detalhes-filme.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { CardFilmeComponent } from './shared/card-filme/card-filme.component';
+import { ListaCardsFilmesComponent } from './shared/lista-cards-filmes/lista-cards-filmes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListarFilmesComponent,
     DetalhesFilmeComponent,
-    NavbarComponent
+    NavbarComponent,
+    CardFilmeComponent,
+    ListaCardsFilmesComponent
   ],
   imports: [
     BrowserModule,
