@@ -8,7 +8,7 @@ import { FilmeService } from 'src/app/services/filmes.service';
   styleUrls: ['./listar-filmes.component.css']
 })
 export class ListarFilmesComponent {
-  @Input() listaFilmes: Filme[] = [];
+  listaFilmes: Filme[] = [];
 
   constructor(private filmeService: FilmeService){
   }
@@ -17,7 +17,6 @@ export class ListarFilmesComponent {
     this.filmeService.selecionarFilmes().subscribe(
       _listaFilmes => {
         this.listaFilmes = _listaFilmes
-        console.log("==>", this.listaFilmes.map(x => x.urlPoster))
       }
     )
   }
