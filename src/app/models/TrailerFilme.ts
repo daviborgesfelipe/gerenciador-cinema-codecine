@@ -1,9 +1,9 @@
 export class TrailerFilme {
-  id: number;
-  sourceUrl: string[];
-
-  constructor(id: number, sourceUrl: string[]) {
+  id: string;
+  sourceUrl: string;
+  
+  constructor(id: string, sourceUrl: string) {
     this.id = id;
-    this.sourceUrl = sourceUrl;
+    this.sourceUrl = `https://www.youtube.com/embed/${sourceUrl}?controls=0`;
   }
 }

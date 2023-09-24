@@ -1,31 +1,59 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { DetalhesFilme } from 'src/app/models/DetalhesFilme';
+import { Filme } from 'src/app/models/Filme';
+import { TrailerFilme } from 'src/app/models/TrailerFilme';
+import { FilmeService } from 'src/app/services/filmes.service';
 
 @Component({
   selector: 'app-detalhes-filme',
   templateUrl: './detalhes-filme.component.html',
   styleUrls: ['./detalhes-filme.component.css']
 })
-export class DetalhesFilmeComponent {
+export class DetalhesFilmeComponent implements OnInit{
 
-  @Input() filmeDetalhes: DetalhesFilme = {
+  filmeDetalhes: DetalhesFilme = {
     id: 0,
-    titulo: "Fuga das Galinha",
-    visaoGeral: "milhoes de anos depois, as mesmas galinha de massinha voltaram, agora em vez de tortas é o nugget do .net o problema",
-    dataLancamento: "11/12/2023",
-    urlPoster: "zgBW2eNkN0Ez09GgRaWret90C1T.jpg",
+    titulo: "",
+    visaoGeral: "",
+    dataLancamento: "",
+    urlPoster: "",
     urlSlide: "FsgphDQqzFw",
-    mediaNota: 9.7777,
-    contagemVotos: 123123123,
+    mediaNota: 0,
+    contagemVotos: 0,
     genero: ["luta","gastronomia","agricultura","vida no campo"],
     fav: true
   };
 
+  trailerFilme: TrailerFilme = {
+    id: "",
+    sourceUrl: ""
+  };
+
+  listaTrailers: any[] = []
   trailerUrl: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer){
-    this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.filmeDetalhes.urlSlide}?controls=0`);
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private filmeService: FilmeService){
+    this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.trailerFilme.sourceUrl);
+  }
+
+
+  ngOnInit(): void {
+    let idx: number = parseInt(this.route.snapshot.paramMap.get('id') as string);
+  
+    this.filmeService.selecionarFilmePorId(idx).subscribe((filme: DetalhesFilme) => {
+      this.filmeDetalhes = filme;
+    });
+  
+    this.filmeService.selecionarTrailerFilmePorId(idx).subscribe((_trailerFilme: TrailerFilme[]) => {
+      this.listaTrailers.push(_trailerFilme);
+  
+      if (this.listaTrailers.length > 0) {
+        const url = this.listaTrailers[0][0].sourceUrl;
+        this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+      }
+    });
   }
 
 }
