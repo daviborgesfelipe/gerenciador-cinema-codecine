@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { CreditosFilme } from 'src/app/models/CreditosFilme';
 import { DetalhesFilme } from 'src/app/models/DetalhesFilme';
 import { Filme } from 'src/app/models/Filme';
 import { TrailerFilme } from 'src/app/models/TrailerFilme';
@@ -26,11 +27,15 @@ export class DetalhesFilmeComponent implements OnInit{
     fav: true
   };
 
+  departamentos: { nome: string, nomes: string[] }[] = [];
+
+
   trailerFilme: TrailerFilme = {
     id: "",
     sourceUrl: ""
   };
 
+  creditos: any[] = []
   listaTrailers: any[] = []
   trailerUrl: SafeResourceUrl;
 
@@ -40,20 +45,37 @@ export class DetalhesFilmeComponent implements OnInit{
 
 
   ngOnInit(): void {
+    
     let idx: number = parseInt(this.route.snapshot.paramMap.get('id') as string);
-  
+    
     this.filmeService.selecionarFilmePorId(idx).subscribe((filme: DetalhesFilme) => {
       this.filmeDetalhes = filme;
     });
-  
+    
     this.filmeService.selecionarTrailerFilmePorId(idx).subscribe((_trailerFilme: TrailerFilme[]) => {
       this.listaTrailers.push(_trailerFilme);
-  
+      
       if (this.listaTrailers.length > 0) {
         const url = this.listaTrailers[0][0].sourceUrl;
         this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       }
     });
+    
+    this.filmeService.selecionarCreditosFilmePorId(idx).subscribe((_creditosFilme: CreditosFilme[]) => {
+      this.creditos.push(_creditosFilme)
+      this.creditos.map((x: any) => 
+        x.forEach((credito: any) => {
+          const departamento = credito.departamento;
+        
+          const departamentoExistente = this.departamentos.find(d => d.nome === departamento);
+        
+          if (departamentoExistente) {
+            departamentoExistente.nomes.push(credito.nome);
+          } else {
+            this.departamentos.push({ nome: departamento, nomes: [credito.nome] });
+          }
+        })
+      )
+    })
   }
-
 }

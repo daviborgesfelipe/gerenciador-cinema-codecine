@@ -13,6 +13,7 @@ import { DetalhesFilmeComponent } from './views/detalhes-filme/detalhes-filme.co
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CardFilmeComponent } from './shared/card-filme/card-filme.component';
 import { ListaCardsFilmesComponent } from './shared/lista-cards-filmes/lista-cards-filmes.component';
+import { TabelaCreditosFilmesComponent } from './shared/tabela-creditos-filmes/tabela-creditos-filmes.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ListaCardsFilmesComponent } from './shared/lista-cards-filmes/lista-car
     DetalhesFilmeComponent,
     NavbarComponent,
     CardFilmeComponent,
-    ListaCardsFilmesComponent
+    ListaCardsFilmesComponent,
+    TabelaCreditosFilmesComponent
   ],
   imports: [
     BrowserModule,

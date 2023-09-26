@@ -1,5 +1,7 @@
 <body class="bg-dark">
   <div class="container d-grid gap-3">
+
+
     <!-- Cabecalho -->
     <div class="row">
       <div class="d-flex align-items-center">
@@ -12,6 +14,10 @@
       </div>
       <small id="dataLancamento" class="fw-medium text-warning">{{filmeDetalhes.dataLancamento}}</small>
     </div>
+
+
+
+
 
     <!-- Seção do Poster e Trailer -->
     <div class="row gap-3">
@@ -35,24 +41,32 @@
       </div>
     </div>
 
+
+
+    <!-- GERENOS -->
     <div class="d-flex gap-3">
       <div 
         class="row px-2" 
-        *ngFor="let item of filmeDetalhes.genero"
+        *ngFor="let genero of filmeDetalhes.genero"
       >
-        
         <span class="badge rounded-pill fs-5 px-4 py-2 bg-warning text-dark">
-          {{item}}
+          {{genero}}
         </span>
-
       </div>
-
     </div>
 
+    <!-- VISAO GERAL -->
     <div class="row">
       <p class="fs-5 text-light">
         {{filmeDetalhes.visaoGeral}}
       </p>
     </div>
+
+
+    <app-tabela-creditos-filmes
+      [departamentos]="departamentos"
+    >
+    </app-tabela-creditos-filmes>
+
   </div>
 </body>

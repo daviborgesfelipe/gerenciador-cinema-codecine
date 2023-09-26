@@ -1,0 +1,14 @@
+<table class="table table-secondary fs-5 text-dark bg-warning rounded-3 fw-bolder table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Departamento</th>
+      <th scope="col" class="text-end">Nomes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let departamento of departamentos">
+      <td class="col-3">{{ departamento.nome }}</td>
+      <td class="col text-end">{{ departamento.nomes.join(' - ') }}</td>
+    </tr>
+  </tbody>
+</table>
