@@ -1,18 +1,14 @@
-<div class="h-100 bg-secondary rounded-3 px-0 border border-dark rounded-3 border-opacity-25">
-  <div class="d-grid gap-2 text-center">
-    <img
-      [src]="filme.urlPoster" 
-      alt="Imagem Dinâmica"
-      class="img-fluid rounded-top"
-    />
+<div class="h-100 rounded-3 container px-0 text-center">
+  <img
+    [src]="filme.urlPoster" 
+    alt="Imagem Dinâmica"
+    class="img-fluid rounded px-0"
+  />
+  <div class="py-2 h-100">
     <a 
       routerLink="/filmes/detalhes/{{filme.id}}" 
-      class="ps-2 text-start fs-5 link-warning text-decoration-none fw-semibold"
-      >{{ filme.titulo }}
+      class="fs-5 link-warning text-decoration-none fw-semibold p-2"
+    >{{ filme.titulo }}
     </a>
-    <p 
-      class="px-2 text-start fs-6 text-warning text-decoration-none fw-semibold">
-      {{filme.dataLancamento}}
-    </p>
-  </div>
-</div>
+  </div>  
+</div> 

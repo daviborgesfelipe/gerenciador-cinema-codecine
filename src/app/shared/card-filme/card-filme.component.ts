@@ -20,4 +20,13 @@ export class CardFilmeComponent {
   };
 
   constructor(){}
+
+  formatarData(): string {
+    const partesData: string[] = this.filme.dataLancamento.split("-");
+    const ano: string = partesData[0];
+    const mes: string = partesData[1];
+    const dia: string = partesData[2];
+    
+    return `${dia}-${mes}-${ano}`;
+  }
 }
