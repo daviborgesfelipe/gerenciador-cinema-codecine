@@ -3,7 +3,7 @@ import { CreditosFilme } from '../models/CreditosFilme';
 import { DetalhesFilme } from '../models/DetalhesFilme';
 import { Filme } from '../models/Filme';
 import { TrailerFilme } from '../models/TrailerFilme';
-import { Observable, map } from 'rxjs';
+import { Observable, map, forkJoin  } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 
@@ -71,6 +71,12 @@ export class FilmeService implements OnInit {
         (obj: any) =>  this.mapearCreditosFilme(obj.cast)
       )
     )
+  }
+
+  public selecionarFilmesPorIds(ids: number[]): Observable<DetalhesFilme[]> {
+    const observables = ids.map(id => this.selecionarFilmePorId(id));
+    
+    return forkJoin(observables);
   }
 
   private mapearListaFilmes(filmes: any): Filme[] {

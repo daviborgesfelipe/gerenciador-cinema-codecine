@@ -9,4 +9,5 @@ import { FilmeService } from 'src/app/services/filmes.service';
 })
 export class ListaCardsFilmesComponent{
   @Input() listaFilmes: Filme[] = []
+  @Input() tipo: string = ""
 }

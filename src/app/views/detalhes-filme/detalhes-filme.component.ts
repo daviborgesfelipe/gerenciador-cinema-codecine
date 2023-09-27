@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { FilmesFavoritos } from 'src/app/models/FilmesFavoritos';
+import { FilmeService } from 'src/app/services/filmes.service';
 import { CreditosFilme } from 'src/app/models/CreditosFilme';
 import { DetalhesFilme } from 'src/app/models/DetalhesFilme';
-import { Filme } from 'src/app/models/Filme';
 import { TrailerFilme } from 'src/app/models/TrailerFilme';
-import { FilmeService } from 'src/app/services/filmes.service';
 
 @Component({
   selector: 'app-detalhes-filme',
@@ -13,6 +15,8 @@ import { FilmeService } from 'src/app/services/filmes.service';
   styleUrls: ['./detalhes-filme.component.css']
 })
 export class DetalhesFilmeComponent implements OnInit{
+  
+  trailerUrl: SafeResourceUrl;
 
   filmeDetalhes: DetalhesFilme = {
     id: 0,
@@ -27,32 +31,41 @@ export class DetalhesFilmeComponent implements OnInit{
     fav: true
   };
 
-  departamentos: { nome: string, nomes: string[] }[] = [];
-
-
   trailerFilme: TrailerFilme = {
     id: "",
     sourceUrl: ""
   };
-
-  creditos: any[] = []
+  
+  departamentos: { nome: string, nomes: string[] }[] = [];
+  listaFavoritos: FilmesFavoritos;
+  listaCreditos: any[] = []
   listaTrailers: any[] = []
-  trailerUrl: SafeResourceUrl;
+  id: number;
 
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private filmeService: FilmeService){
+  constructor(
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute,
+    private filmeService: FilmeService,
+    private localStorageService: LocalStorageService
+  ){
+    this.localStorageService = new LocalStorageService();
     this.trailerUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.trailerFilme.sourceUrl);
+    this.listaFavoritos = this.localStorageService.carregarDados();
+    console.log(this.listaFavoritos)
+    this.id = parseInt(this.route.snapshot.paramMap.get('id') as string);
+    console.log(this.id)
   }
 
 
   ngOnInit(): void {
     
-    let idx: number = parseInt(this.route.snapshot.paramMap.get('id') as string);
-    
-    this.filmeService.selecionarFilmePorId(idx).subscribe((filme: DetalhesFilme) => {
+    this.id = parseInt(this.route.snapshot.paramMap.get('id') as string);
+    console.log(this.id)
+    this.filmeService.selecionarFilmePorId(this.id).subscribe((filme: DetalhesFilme) => {
       this.filmeDetalhes = filme;
     });
     
-    this.filmeService.selecionarTrailerFilmePorId(idx).subscribe((_trailerFilme: TrailerFilme[]) => {
+    this.filmeService.selecionarTrailerFilmePorId(this.id).subscribe((_trailerFilme: TrailerFilme[]) => {
       this.listaTrailers.push(_trailerFilme);
       
       if (this.listaTrailers.length > 0) {
@@ -61,9 +74,9 @@ export class DetalhesFilmeComponent implements OnInit{
       }
     });
     
-    this.filmeService.selecionarCreditosFilmePorId(idx).subscribe((_creditosFilme: CreditosFilme[]) => {
-      this.creditos.push(_creditosFilme)
-      this.creditos.map((x: any) => 
+    this.filmeService.selecionarCreditosFilmePorId(this.id).subscribe((_creditosFilme: CreditosFilme[]) => {
+      this.listaCreditos.push(_creditosFilme)
+      this.listaCreditos.map((x: any) => 
         x.forEach((credito: any) => {
           const departamento = credito.departamento;
         
@@ -78,4 +91,26 @@ export class DetalhesFilmeComponent implements OnInit{
       )
     })
   }
+
+  atualizarListaFavoritos(): void {
+    if(this.listaFavoritos.ids.includes(this.id)) {
+      this.listaFavoritos.ids = this.listaFavoritos.ids.filter(x => x != this.id);
+    }
+    else {
+      this.listaFavoritos.ids.push(this.id);
+    }
+
+    this.localStorageService.salvarDados(this.listaFavoritos);
+    console.log(this.listaFavoritos)
+    // this.atualizarIconFav();
+  }
+
+  // atualizarIconFav(): void {
+  //   if(this.listaFavoritos.ids.includes(this.id)) {
+  //     lblFavorito.className = "bi bi-heart-fill fs-2 text-warning";
+  //   }
+  //   else {
+  //     lblFavorito.className = "bi bi-heart fs-2 text-warning";
+  //   }
+  // }
 }

@@ -1,23 +1,21 @@
 <body class="bg-dark">
   <div class="container d-grid gap-3">
-
-
     <!-- Cabecalho -->
     <div class="row">
       <div class="d-flex align-items-center">
         <h1 class="text-warning fw-bold mt-3">{{filmeDetalhes.titulo}} </h1>
-
+        
         <div class="ms-auto text-end">
           <p class="fw-medium text-warning">{{filmeDetalhes.contagemVotos}} de votos</p>
-          <i class="bi bi-heart fs-2 text-warning"></i>
+          <i 
+            class="bi fs-2 text-warning"
+            [ngClass]="{'bi-heart-fill': listaFavoritos.ids.includes(id), 'bi-heart': !listaFavoritos.ids.includes(id)}"
+            (click)="atualizarListaFavoritos()"
+          ></i>
         </div>
       </div>
       <small id="dataLancamento" class="fw-medium text-warning">{{filmeDetalhes.dataLancamento}}</small>
     </div>
-
-
-
-
 
     <!-- Seção do Poster e Trailer -->
     <div class="row gap-3">
@@ -40,8 +38,6 @@
         </div>
       </div>
     </div>
-
-
 
     <!-- GERENOS -->
     <div class="d-flex gap-3">

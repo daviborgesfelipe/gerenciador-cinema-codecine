@@ -1,17 +1,15 @@
-<div class="container d-grid gap-3">
+<div class="container d-grid gap-3 border-bottom border-warning">
   <!-- TO-DO 
     FAZER O DATA BINDING DESSE H1 CONFORME O TIPO DE LISTA FILMES
    -->
-  <h1 class="fw-semibold text-warning pt-3">Filmes em Alta</h1> 
+  <h1 class="fw-semibold text-warning pt-3">{{tipo}}</h1> 
 
-  <div class="row gap-3 justify-content-center" >
-
+  <div class="row gap-2 justify-content-center" >
     <app-card-filme 
       *ngFor="let filme of listaFilmes"
       [filme]="filme"
-      class="px-0 border rounded-3 border-opacity-25 col-6 col-sm-5 col-md-3 col-lg-2">
+      class="rounded-3 col-6 col-sm-5 col-md-3 col-lg-2 pb-3">
     </app-card-filme>
-
   </div>
 
 </div>

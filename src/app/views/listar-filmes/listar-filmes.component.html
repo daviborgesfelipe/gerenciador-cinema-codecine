@@ -7,7 +7,19 @@
   TO-DO LAÇO ngFor OU ngIf PARA CADA TIPO DE LISTA DE FILMES, 
   exp: Lista Fav, Lista Populares, Lista Mais Votados
 -->
+<div class="container pb-3">
+  
+  <app-lista-cards-filmes
+    *ngIf="listaFilmesFav.length > 0"
+    [listaFilmes]="listaFilmesFav"
+    [tipo]="tipoFavorito"
+  >
+  </app-lista-cards-filmes>
 
-<app-lista-cards-filmes
-  [listaFilmes]="listaFilmes"
-></app-lista-cards-filmes>
+  <app-lista-cards-filmes
+    [listaFilmes]="listaFilmes"
+    [tipo]="tipoPopulares"
+  ></app-lista-cards-filmes>
+
+
+</div>
