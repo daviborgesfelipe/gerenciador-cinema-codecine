@@ -9,7 +9,6 @@ export class LocalStorageService {
   endereco: string = 'code-cine:historico@1.0.1'
   favoritos: FilmesFavoritos;
 
-
   constructor() {
     this.favoritos = {
       ids: []

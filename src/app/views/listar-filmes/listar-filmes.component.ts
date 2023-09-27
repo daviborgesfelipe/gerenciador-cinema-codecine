@@ -4,6 +4,8 @@ import { FilmesFavoritos } from 'src/app/models/FilmesFavoritos';
 import { FilmeService } from 'src/app/services/filmes.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
+const FILTER_PAG_REGEX = /[^0-9]/g;
+
 @Component({
   selector: 'app-listar-filmes',
   templateUrl: './listar-filmes.component.html',
@@ -11,12 +13,17 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class ListarFilmesComponent {
   listaIdsFilmesFav: FilmesFavoritos;
-  listaFilmes: Filme[] = [];
+  listaFilmesEmAlta: Filme[] = [];
+  listaFilmesConsagrados: Filme[] = [];
+  listaFilmesLancamentos: Filme[] = [];
   listaFilmesFav: any[] = [];
   page: number = 1
   pageFav: number = 1;
+  active = 1;
   tipoFavorito: string = "Filmes Favoritos"
   tipoPopulares: string = "Filmes em Alta"
+  tipoBemAvaliados: string = "Filmes Consagrados"
+  tipoLancamentos: string = "Filmes Lançamentos"
 
   constructor(private filmeService: FilmeService, private localStorageService: LocalStorageService){
     this.listaIdsFilmesFav = this.localStorageService.carregarDados();
@@ -24,28 +31,41 @@ export class ListarFilmesComponent {
 
   ngOnInit(): void {
     this.listaIdsFilmesFav = this.localStorageService.carregarDados()
-    this.filmeService.selecionarFilmes(this.page).subscribe(
-      _listaFilmes => {
-        this.listaFilmes = _listaFilmes
-      }
-    )
-    this.filmeService.selecionarFilmesPorIds(this.listaIdsFilmesFav.ids).subscribe(
-      _listaFilmes => {
-        this.listaFilmesFav = _listaFilmes
-      }
-    )
+    this.atualizarListas();
   }
 
-  pageChangeEvent(event: number){
+  private atualizarListas() {
+    this.filmeService.selecionarFilmesEmAlta(this.page).subscribe(
+      _listaFilmes => {
+        this.listaFilmesEmAlta = _listaFilmes;
+      }
+    );
+
+    this.filmeService.selecionarFilmesBemAvaliados(this.page).subscribe(
+      _listaFilmes => {
+        this.listaFilmesConsagrados = _listaFilmes;
+      }
+    );
+
+    this.filmeService.selecionarFilmesLancamento(this.page).subscribe(
+      _listaFilmes => {
+        this.listaFilmesLancamentos = _listaFilmes;
+      }
+    );
+
+    this.filmeService.selecionarFilmesPorIds(this.listaIdsFilmesFav.ids).subscribe(
+      _listaFilmes => {
+        this.listaFilmesFav = _listaFilmes;
+      }
+    );
+  }
+
+  onListasEvent(event: number){
     this.page = event;
     console.log(this.page)
-    this.filmeService.selecionarFilmes(this.page).subscribe(
-      _listaFilmes => {
-        this.listaFilmes = _listaFilmes
-      }
-    )
+    this.atualizarListas();
   }
-  onTableDataChange(event: any) {
+  onListaFavEvent(event: any) {
     this.pageFav = event;
   }
 }

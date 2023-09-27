@@ -11,23 +11,45 @@ import { Injectable, OnInit } from '@angular/core';
   providedIn: 'root',
 })
 export class FilmeService implements OnInit {
-  private NOTAS_API_URL = `https://api.themoviedb.org/3/movie/popular`;
+  private FILMES_POPULARES_API_URL = `https://api.themoviedb.org/3/movie/popular`;
+  private FILMES_BEM_AVALIADOS_API_URL = `https://api.themoviedb.org/3/movie/top_rated`;
+  private FILMES_LANCAMENTOS_API_URL = `https://api.themoviedb.org/3/movie/upcoming`;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http
-      .get<any>(
-        `${this.NOTAS_API_URL}?language=pt-BR&page=1`,
-        this.obterHeaderAutorizacao()
-      )
-      .pipe(map((obj: any) => console.log('=====>', obj.results)));
+    // this.http
+    //   .get<any>(
+    //     `${this.NOTAS_API_URL}?language=pt-BR&page=1`,
+    //     this.obterHeaderAutorizacao()
+    //   )
+    //   .pipe(map((obj: any) => console.log('=====>', obj.results)));
   }
 
-  selecionarFilmes(page: string | number): Observable<Filme[]> {
+  // METODOS PUBLICOS
+
+  public selecionarFilmesEmAlta(page: string | number): Observable<Filme[]> {
     return this.http
       .get<any>(
-        `${this.NOTAS_API_URL}?language=pt-BR&page=`+ page,
+        `${this.FILMES_POPULARES_API_URL}?language=pt-BR&page=`+ page,
+        this.obterHeaderAutorizacao()
+      )
+      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
+  }
+
+  public selecionarFilmesBemAvaliados(page: string | number): Observable<Filme[]> {
+    return this.http
+      .get<any>(
+        `${this.FILMES_BEM_AVALIADOS_API_URL}?language=pt-BR&page=`+ page,
+        this.obterHeaderAutorizacao()
+      )
+      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
+  }
+
+  public selecionarFilmesLancamento(page: string | number): Observable<Filme[]> {
+    return this.http
+      .get<any>(
+        `${this.FILMES_LANCAMENTOS_API_URL}?language=pt-BR&page=`+ page,
         this.obterHeaderAutorizacao()
       )
       .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
@@ -47,7 +69,7 @@ export class FilmeService implements OnInit {
     )
   }
 
-  selecionarTrailerFilmePorId(id: number): Observable<TrailerFilme[]> {
+  public selecionarTrailerFilmePorId(id: number): Observable<TrailerFilme[]> {
     const url = `https://api.themoviedb.org/3/movie/${id}/videos`;
     return this.http.get<any>(
       `${url}?language=pt-BR&page=1`,
@@ -78,6 +100,8 @@ export class FilmeService implements OnInit {
     
     return forkJoin(observables);
   }
+
+  // METODOS PRIVADOS
 
   private mapearListaFilmes(filmes: any): Filme[] {
     return filmes.map((filme: any) => {

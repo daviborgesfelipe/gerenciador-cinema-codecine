@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { ListarFilmesComponent } from './views/listar-filmes/listar-filmes.component';
@@ -35,6 +36,7 @@ import { TabelaCreditosFilmesComponent } from './shared/tabela-creditos-filmes/t
     FormsModule,
     HttpClientModule,
     NgbModule,
+    NgbNavModule,
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
