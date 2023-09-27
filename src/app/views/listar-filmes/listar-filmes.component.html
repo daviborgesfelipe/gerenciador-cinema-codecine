@@ -7,19 +7,53 @@
   TO-DO LAÇO ngFor OU ngIf PARA CADA TIPO DE LISTA DE FILMES, 
   exp: Lista Fav, Lista Populares, Lista Mais Votados
 -->
-<div class="container pb-3">
-  
-  <app-lista-cards-filmes
-    *ngIf="listaFilmesFav.length > 0"
-    [listaFilmes]="listaFilmesFav"
-    [tipo]="tipoFavorito"
-  >
-  </app-lista-cards-filmes>
 
+<div class="container pb-3">
+
+  <!-- <pagination-controls id="" (pageChange)="pageChangeEvent($event)"></pagination-controls>
+   -->
+  <div class="d-flex justify-content-center py-2">
+   <ngb-pagination 
+    [collectionSize]="100" 
+    [(page)]="page" 
+    (pageChange)="pageChangeEvent(page)"
+    ></ngb-pagination>
+  </div>
+
+  <div class="d-flex justify-content-center" 
+    *ngIf="listaFilmesFav.length > 0">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      class="text-warning"
+      id="paginationFav"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+
+  <app-lista-cards-filmes
+   *ngIf="listaFilmesFav.length > 0"
+    [listaFilmes]="listaFilmesFav | paginate: {
+      id: 'paginationFav',
+      itemsPerPage: 5,
+      currentPage: pageFav
+    }"
+    [tipo]="tipoFavorito"
+   >
+  </app-lista-cards-filmes>
+  
   <app-lista-cards-filmes
     [listaFilmes]="listaFilmes"
     [tipo]="tipoPopulares"
   ></app-lista-cards-filmes>
 
+  <div class="d-flex justify-content-center py-2">
+    <ngb-pagination 
+      [collectionSize]="100" 
+      [(page)]="page" 
+      (pageChange)="pageChangeEvent(page)"
+    ></ngb-pagination>
+  </div>
 
 </div>

@@ -24,10 +24,10 @@ export class FilmeService implements OnInit {
       .pipe(map((obj: any) => console.log('=====>', obj.results)));
   }
 
-  selecionarFilmes(): Observable<Filme[]> {
+  selecionarFilmes(page: string | number): Observable<Filme[]> {
     return this.http
       .get<any>(
-        `${this.NOTAS_API_URL}?language=pt-BR&page=1`,
+        `${this.NOTAS_API_URL}?language=pt-BR&page=`+ page,
         this.obterHeaderAutorizacao()
       )
       .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
@@ -37,7 +37,7 @@ export class FilmeService implements OnInit {
     const url = `https://api.themoviedb.org/3/movie/${id}?language=pt-br`;
     
     return this.http.get<DetalhesFilme>(
-      `${url}?language=pt-BR&page=1`,
+      `${url}?language=pt-BR`,
       this.obterHeaderAutorizacao()
     )
     .pipe(

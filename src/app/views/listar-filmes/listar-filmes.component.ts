@@ -13,6 +13,8 @@ export class ListarFilmesComponent {
   listaIdsFilmesFav: FilmesFavoritos;
   listaFilmes: Filme[] = [];
   listaFilmesFav: any[] = [];
+  page: number = 1
+  pageFav: number = 1;
   tipoFavorito: string = "Filmes Favoritos"
   tipoPopulares: string = "Filmes em Alta"
 
@@ -22,7 +24,7 @@ export class ListarFilmesComponent {
 
   ngOnInit(): void {
     this.listaIdsFilmesFav = this.localStorageService.carregarDados()
-    this.filmeService.selecionarFilmes().subscribe(
+    this.filmeService.selecionarFilmes(this.page).subscribe(
       _listaFilmes => {
         this.listaFilmes = _listaFilmes
       }
@@ -30,8 +32,20 @@ export class ListarFilmesComponent {
     this.filmeService.selecionarFilmesPorIds(this.listaIdsFilmesFav.ids).subscribe(
       _listaFilmes => {
         this.listaFilmesFav = _listaFilmes
-        console.log(this.listaFilmesFav)
       }
     )
+  }
+
+  pageChangeEvent(event: number){
+    this.page = event;
+    console.log(this.page)
+    this.filmeService.selecionarFilmes(this.page).subscribe(
+      _listaFilmes => {
+        this.listaFilmes = _listaFilmes
+      }
+    )
+  }
+  onTableDataChange(event: any) {
+    this.pageFav = event;
   }
 }

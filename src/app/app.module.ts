@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { ListarFilmesComponent } from './views/listar-filmes/listar-filmes.component';
@@ -27,6 +28,8 @@ import { TabelaCreditosFilmesComponent } from './shared/tabela-creditos-filmes/t
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
