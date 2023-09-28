@@ -5,6 +5,7 @@ import { TrailerFilme } from '../models/TrailerFilme';
 import { Observable, map, forkJoin  } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit, Query } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -158,13 +159,12 @@ export class FilmeService implements OnInit {
   }
 
   private obterHeaderAutorizacao() {
-    const API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZjI5ZGFkM2Q4MTMzNTg2M2Q5NmQ0ZmMwZWMzYWEyYyIsInN1YiI6IjY0Zjg5ZmJhYThiMmNhMDEzODRiMjY2ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4cBZHI69PPnTqIY-N26PdMrYJ0r2APpyIyDlD7FB0yU"; 
 
     return {
       method: 'GET',
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${API_KEY}`,
+        Authorization: environment.API_KEY,
       },
     };
   }
