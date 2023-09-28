@@ -4,8 +4,6 @@ import { FilmesFavoritos } from 'src/app/models/FilmesFavoritos';
 import { FilmeService } from 'src/app/services/filmes.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
-const FILTER_PAG_REGEX = /[^0-9]/g;
-
 @Component({
   selector: 'app-listar-filmes',
   templateUrl: './listar-filmes.component.html',
@@ -13,13 +11,15 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
 })
 export class ListarFilmesComponent {
   listaIdsFilmesFav: FilmesFavoritos;
-  listaFilmesEmAlta: Filme[] = [];
-  listaFilmesConsagrados: Filme[] = [];
+  listaFilmesConsagrados: Filme[] = []; 
   listaFilmesLancamentos: Filme[] = [];
+  listaFilmesEmAlta: Filme[] = [];
   listaFilmesFav: any[] = [];
+
   page: number = 1
   pageFav: number = 1;
   active = 1;
+  
   tipoFavorito: string = "Filmes Favoritos"
   tipoPopulares: string = "Filmes em Alta"
   tipoBemAvaliados: string = "Filmes Consagrados"
@@ -62,9 +62,9 @@ export class ListarFilmesComponent {
 
   onListasEvent(event: number){
     this.page = event;
-    console.log(this.page)
     this.atualizarListas();
   }
+
   onListaFavEvent(event: any) {
     this.pageFav = event;
   }

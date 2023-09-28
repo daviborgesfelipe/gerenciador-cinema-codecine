@@ -1,0 +1,17 @@
+<div class="container d-grid gap-3 border-bottom border-white">
+  <!-- TO-DO 
+    FAZER O DATA BINDING DESSE H1 CONFORME O TIPO DE LISTA FILMES
+   -->
+  <h1 class="fw-semibold text-warning pt-3">Busca de Filmes</h1> 
+
+  <div class="row gap-2 justify-content-center" >
+
+    <app-card-busca 
+      *ngFor="let filme of listaFilmes"
+      [filme]="filme"
+      >
+    </app-card-busca>
+
+  </div>
+
+</div>

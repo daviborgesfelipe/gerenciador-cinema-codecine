@@ -1,3 +1,6 @@
 .bi-heart{
   cursor: pointer;
 }
+*{
+  text-align: justify
+}

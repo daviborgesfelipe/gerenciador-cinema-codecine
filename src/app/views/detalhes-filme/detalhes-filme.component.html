@@ -19,15 +19,15 @@
 
     <!-- Seção do Poster e Trailer -->
     <div class="row gap-3">
-      <div class="col-lg-3">
+      <div class="col-lg-3 text-warning">
         <img
           [src]="filmeDetalhes.urlPoster"                                                                                                                                                 
           class="img-fluid rounded-3"
-          alt=""
+          alt="Ops.. Ocorreu um problema interno, por enquando, use o Google basta procurar por: Filme {{filmeDetalhes.titulo}}"
         />
       </div>
       <div class="col-lg">
-        <div class="ratio ratio-21x9 h-100">
+        <div class="ratio ratio-21x9 h-100 text-warning">
           <iframe
             class="rounded-3"
             id="iframeTrailer"
@@ -35,6 +35,7 @@
             frameborder="0"
             allowfullscreen
           ></iframe>
+           Ops.. Ocorreu um problema interno, por enquando, use o Youtube, basta procurar por: {{filmeDetalhes.titulo}}
         </div>
       </div>
     </div>
@@ -53,7 +54,7 @@
 
     <!-- VISAO GERAL -->
     <div class="row">
-      <p class="fs-5 text-light">
+      <p class="fs-5 fw-medium text-light font-monospace">
         {{filmeDetalhes.visaoGeral}}
       </p>
     </div>

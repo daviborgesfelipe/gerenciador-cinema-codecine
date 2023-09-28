@@ -1,100 +1,20 @@
+
+
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs gap-2 py-2">
-	<li [ngbNavItem]="1">
-		<button ngbNavLink class="text-warning fs-4 bg-dark">Filmes Favoritos</button>
-		<ng-template ngbNavContent>
 
-        <!-- Paginacao Lista de Filmes FAVORITOS-->
-        <div class="d-flex justify-content-center" 
-        *ngIf="listaFilmesFav.length > 0">
-        <pagination-controls
-          previousLabel="Prev"
-          nextLabel="Next"
-          class="text-warning"
-          id="paginationFav"
-          (pageChange)="onListaFavEvent($event)"
-        >
-        </pagination-controls>
-      </div>
-
-      <app-lista-cards-filmes
-      *ngIf="listaFilmesFav.length > 0"
-        [listaFilmes]="listaFilmesFav | paginate: {
-         id: 'paginationFav',
-         itemsPerPage: 5,
-         currentPage: pageFav
-        }"
-        [tipo]="tipoFavorito"
-      >
-      </app-lista-cards-filmes>
-
-		</ng-template>
-	</li>
-	<li [ngbNavItem]="2">
-		<button ngbNavLink class="text-warning fs-4 bg-dark">Filmes em Alta</button>
+  <li [ngbNavItem]="1">
+		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes Lançamentos">Filmes Lançamentos</button>
 		<ng-template ngbNavContent>
 
       <div class="d-flex justify-content-center py-2">
+
         <ngb-pagination 
-         [collectionSize]="100" 
-         [(page)]="page" 
-         (pageChange)="onListasEvent(page)"
-         ></ngb-pagination>
-       </div>
+          class="text-dark"
+          [collectionSize]="100" 
+          [(page)]="page" 
+          (pageChange)="onListasEvent(page)"
+        ></ngb-pagination>
 
-      <app-lista-cards-filmes
-        [listaFilmes]="listaFilmesEmAlta"
-        [tipo]="tipoPopulares"
-      ></app-lista-cards-filmes>
-
-      <div class="d-flex justify-content-center py-2">
-        <ngb-pagination 
-         [collectionSize]="100" 
-         [(page)]="page" 
-         (pageChange)="onListasEvent(page)"
-         ></ngb-pagination>
-      </div>
-
-		</ng-template>
-	</li>
-
-	<li [ngbNavItem]="3">
-		<button ngbNavLink class="text-warning fs-4 bg-dark">Filmes Consagrados</button>
-		<ng-template ngbNavContent>
-
-      <div class="d-flex justify-content-center py-2">
-        <ngb-pagination 
-         [collectionSize]="100" 
-         [(page)]="page" 
-         (pageChange)="onListasEvent(page)"
-         ></ngb-pagination>
-       </div>
-
-      <app-lista-cards-filmes
-        [listaFilmes]="listaFilmesConsagrados"
-        [tipo]="tipoBemAvaliados"
-      ></app-lista-cards-filmes>
-
-      <div class="d-flex justify-content-center py-2">
-        <ngb-pagination 
-         [collectionSize]="100" 
-         [(page)]="page" 
-         (pageChange)="onListasEvent(page)"
-         ></ngb-pagination>
-      </div>
-
-		</ng-template>
-	</li>
-  
-  <li [ngbNavItem]="4">
-		<button ngbNavLink class="text-warning fs-4 bg-dark">Filmes Lançamentos</button>
-		<ng-template ngbNavContent>
-
-      <div class="d-flex justify-content-center py-2">
-        <ngb-pagination 
-         [collectionSize]="100" 
-         [(page)]="page" 
-         (pageChange)="onListasEvent(page)"
-         ></ngb-pagination>
        </div>
 
       <app-lista-cards-filmes
@@ -103,15 +23,114 @@
       ></app-lista-cards-filmes>
 
       <div class="d-flex justify-content-center py-2">
+
         <ngb-pagination 
          [collectionSize]="100" 
          [(page)]="page" 
          (pageChange)="onListasEvent(page)"
-         ></ngb-pagination>
+        ></ngb-pagination>
+
       </div>
 
 		</ng-template>
 	</li>
+
+	<li [ngbNavItem]="2">
+		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes em Alta">Filmes em Alta</button>
+		<ng-template ngbNavContent>
+
+      <div class="d-flex justify-content-center py-2">
+
+        <ngb-pagination 
+         [collectionSize]="100" 
+         [(page)]="page" 
+         (pageChange)="onListasEvent(page)"
+        ></ngb-pagination>
+
+      </div>
+
+      <app-lista-cards-filmes
+        [listaFilmes]="listaFilmesEmAlta"
+        [tipo]="tipoPopulares"
+      ></app-lista-cards-filmes>
+
+      <div class="d-flex justify-content-center py-2">
+
+        <ngb-pagination 
+         [collectionSize]="100" 
+         [(page)]="page" 
+         (pageChange)="onListasEvent(page)"
+        ></ngb-pagination>
+
+      </div>
+
+		</ng-template>
+	</li>
+
+	<li [ngbNavItem]="3">
+		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes Consagrados">Filmes Consagrados</button>
+		<ng-template ngbNavContent>
+
+      <div class="d-flex justify-content-center py-2">
+
+        <ngb-pagination 
+         [collectionSize]="100" 
+         [(page)]="page" 
+         (pageChange)="onListasEvent(page)"
+        ></ngb-pagination>
+
+       </div>
+
+      <app-lista-cards-filmes
+        [listaFilmes]="listaFilmesConsagrados"
+        [tipo]="tipoBemAvaliados"
+      ></app-lista-cards-filmes>
+
+      <div class="d-flex justify-content-center py-2">
+
+        <ngb-pagination 
+         [collectionSize]="100" 
+         [(page)]="page" 
+         (pageChange)="onListasEvent(page)"
+        ></ngb-pagination>
+
+      </div>
+
+		</ng-template>
+	</li>
+
+	<li [ngbNavItem]="4">
+		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes Favoritos">Filmes Favoritos</button>
+		<ng-template ngbNavContent>
+
+      <!-- Paginacao Lista de Filmes FAVORITOS-->
+      <div class="d-flex justify-content-center" 
+        *ngIf="listaFilmesFav.length > 0">
+
+        <pagination-controls
+          previousLabel="Voltar"
+          nextLabel="Proximo"
+          class="text-warning my-pagination"
+          id="paginationFav"
+          (pageChange)="onListaFavEvent($event)"
+        >
+        </pagination-controls>
+
+      </div>
+
+      <app-lista-cards-filmes
+        *ngIf="listaFilmesFav.length > 0"
+        [listaFilmes]="listaFilmesFav | paginate: {
+         id: 'paginationFav',
+         itemsPerPage: 10,
+         currentPage: pageFav
+        }"
+        [tipo]="tipoFavorito"
+      ></app-lista-cards-filmes>
+
+		</ng-template>
+	</li>
+
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>

@@ -1,11 +1,10 @@
-import { API_KEY } from 'secrets';
 import { CreditosFilme } from '../models/CreditosFilme';
 import { DetalhesFilme } from '../models/DetalhesFilme';
 import { Filme } from '../models/Filme';
 import { TrailerFilme } from '../models/TrailerFilme';
 import { Observable, map, forkJoin  } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, Query } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +13,7 @@ export class FilmeService implements OnInit {
   private FILMES_POPULARES_API_URL = `https://api.themoviedb.org/3/movie/popular`;
   private FILMES_BEM_AVALIADOS_API_URL = `https://api.themoviedb.org/3/movie/top_rated`;
   private FILMES_LANCAMENTOS_API_URL = `https://api.themoviedb.org/3/movie/upcoming`;
+  private FILMES_BUSCA_API_URL = `https://api.themoviedb.org/3/search/movie?query=`;
 
   constructor(private http: HttpClient) {}
 
@@ -67,6 +67,15 @@ export class FilmeService implements OnInit {
         (obj: any) => this.mapearDetalheFilme(obj)
       )
     )
+  }
+
+  public selecionarFilmePorNome(query: string): Observable<Filme[]> {
+    return this.http
+      .get<any>(
+        this.FILMES_BUSCA_API_URL + query + "&language=pt-BR",
+        this.obterHeaderAutorizacao()
+      )
+      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
   }
 
   public selecionarTrailerFilmePorId(id: number): Observable<TrailerFilme[]> {
@@ -149,6 +158,8 @@ export class FilmeService implements OnInit {
   }
 
   private obterHeaderAutorizacao() {
+    const API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZjI5ZGFkM2Q4MTMzNTg2M2Q5NmQ0ZmMwZWMzYWEyYyIsInN1YiI6IjY0Zjg5ZmJhYThiMmNhMDEzODRiMjY2ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4cBZHI69PPnTqIY-N26PdMrYJ0r2APpyIyDlD7FB0yU"; 
+
     return {
       method: 'GET',
       headers: {

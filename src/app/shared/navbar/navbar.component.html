@@ -1,9 +1,13 @@
 <!-- NAVBAR -->
 <nav class="navbar bg-secondary" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/filmes/inicial" >
-      <p class="px-3 fw-bold fst-italic link-warning m-0 fs-2">Code-Cine</p>
+    <a class="navbar-brand" routerLink="/filmes/inicial" placement="end" ngbTooltip="Pagina Inicial">
+      <p class="px-3 fw-bold fst-italic link-warning m-0 fs-2"><i class="bi bi-camera-reels link-warning pe-3"></i>Code-Cine</p>
     </a>
+    <form class="d-flex" role="search" (ngSubmit)="buscarFilmes()">
+      <input class="form-control me-2" type="search" placeholder="Procure aqui..." aria-label="Search" [(ngModel)]="termoBusca" name="termoBusca">
+      <button class="btn btn-outline-warning" type="submit">Procurar</button>
+    </form>
   </div>
 </nav>
 

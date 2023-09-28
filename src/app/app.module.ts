@@ -16,6 +16,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CardFilmeComponent } from './shared/card-filme/card-filme.component';
 import { ListaCardsFilmesComponent } from './shared/lista-cards-filmes/lista-cards-filmes.component';
 import { TabelaCreditosFilmesComponent } from './shared/tabela-creditos-filmes/tabela-creditos-filmes.component';
+import { BuscaFilmeComponent } from './views/busca-filme/busca-filme.component';
+import { CardBuscaComponent } from './shared/card-busca/card-busca.component';
+import { ListaCardsBuscaComponent } from './shared/lista-cards-busca/lista-cards-busca.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { TabelaCreditosFilmesComponent } from './shared/tabela-creditos-filmes/t
     NavbarComponent,
     CardFilmeComponent,
     ListaCardsFilmesComponent,
-    TabelaCreditosFilmesComponent
+    TabelaCreditosFilmesComponent,
+    BuscaFilmeComponent,
+    CardBuscaComponent,
+    ListaCardsBuscaComponent
   ],
   imports: [
     BrowserModule,
