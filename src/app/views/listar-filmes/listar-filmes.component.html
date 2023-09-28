@@ -6,7 +6,7 @@
 		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes Lançamentos">Filmes Lançamentos</button>
 		<ng-template ngbNavContent>
 
-      <div class="d-flex justify-content-center py-2">
+      <!-- <div class="d-flex justify-content-center py-2">
 
         <ngb-pagination 
           class="text-dark"
@@ -15,19 +15,20 @@
           (pageChange)="onListasEvent(page)"
         ></ngb-pagination>
 
-       </div>
+       </div> -->
 
       <app-lista-cards-filmes
         [listaFilmes]="listaFilmesLancamentos"
         [tipo]="tipoLancamentos"
       ></app-lista-cards-filmes>
 
-      <div class="d-flex justify-content-center py-2">
+      <div class="d-flex justify-content-center py-2 border-bottom mb-2">
 
         <ngb-pagination 
          [collectionSize]="100" 
          [(page)]="page" 
          (pageChange)="onListasEvent(page)"
+         class="m-0"
         ></ngb-pagination>
 
       </div>
@@ -39,7 +40,7 @@
 		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes em Alta">Filmes em Alta</button>
 		<ng-template ngbNavContent>
 
-      <div class="d-flex justify-content-center py-2">
+      <!-- <div class="d-flex justify-content-center py-2">
 
         <ngb-pagination 
          [collectionSize]="100" 
@@ -47,14 +48,14 @@
          (pageChange)="onListasEvent(page)"
         ></ngb-pagination>
 
-      </div>
+      </div> -->
 
       <app-lista-cards-filmes
         [listaFilmes]="listaFilmesEmAlta"
         [tipo]="tipoPopulares"
       ></app-lista-cards-filmes>
 
-      <div class="d-flex justify-content-center py-2">
+      <div class="d-flex justify-content-center py-2 border-bottom">
 
         <ngb-pagination 
          [collectionSize]="100" 
@@ -70,7 +71,7 @@
 	<li [ngbNavItem]="3">
 		<button ngbNavLink class="text-warning fs-4 bg-dark" ngbTooltip="Filmes Consagrados">Filmes Consagrados</button>
 		<ng-template ngbNavContent>
-
+<!-- 
       <div class="d-flex justify-content-center py-2">
 
         <ngb-pagination 
@@ -79,14 +80,14 @@
          (pageChange)="onListasEvent(page)"
         ></ngb-pagination>
 
-       </div>
+       </div> -->
 
       <app-lista-cards-filmes
         [listaFilmes]="listaFilmesConsagrados"
         [tipo]="tipoBemAvaliados"
       ></app-lista-cards-filmes>
 
-      <div class="d-flex justify-content-center py-2">
+      <div class="d-flex justify-content-center py-2 border-bottom">
 
         <ngb-pagination 
          [collectionSize]="100" 

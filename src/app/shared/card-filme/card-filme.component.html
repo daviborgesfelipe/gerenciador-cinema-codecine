@@ -1,9 +1,12 @@
 <div class="h-100 rounded-3 container px-0 text-center">
   <img
-    [src]="filme.urlPoster" 
+    [ngSrc]="filme.urlPoster" 
     alt="Imagem Dinâmica"
     class="img-fluid rounded px-0"
-    style="height: 70%; width: 100%;"
+    width="400"
+    height="600"
+    loading="lazy"
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
   />
   <div class="py-2">
     <a 

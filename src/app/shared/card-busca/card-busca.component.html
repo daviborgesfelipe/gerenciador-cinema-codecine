@@ -3,10 +3,14 @@
 
     <div class="col-md-4">
       <img
-        [src]="filme.urlPoster" 
+        [ngSrc]="filme.urlPoster" 
         alt="Imagem Dinâmica do Filme {{filme.titulo}}"
-        class="img-fluid rounded-start px-0"
+        class="img-fluid rounded-start px-0 h-100"
         routerLink="/filmes/detalhes/{{filme.id}}"
+        width="400"
+        height="600"
+        loading="lazy"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
       />
     </div>
 

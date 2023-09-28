@@ -8,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgOptimizedImage } from '@angular/common'
 
 import { AppComponent } from './app.component';
 import { ListarFilmesComponent } from './views/listar-filmes/listar-filmes.component';
@@ -42,6 +43,7 @@ import { ListaCardsBuscaComponent } from './shared/lista-cards-busca/lista-cards
     FormsModule,
     HttpClientModule,
     NgbModule,
+    NgOptimizedImage,
     NgbNavModule,
     ToastrModule.forRoot({
       timeOut: 3000,
