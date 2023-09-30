@@ -5,7 +5,7 @@
       <img
         [ngSrc]="filme.urlPoster" 
         alt="Imagem Dinâmica do Filme {{filme.titulo}}"
-        class="img-fluid rounded-start px-0 h-100"
+        class="img-fluid rounded-start px-0"
         routerLink="/filmes/detalhes/{{filme.id}}"
         width="400"
         height="700"
@@ -20,7 +20,7 @@
         
         <a 
           routerLink="/filmes/detalhes/{{filme.id}}" 
-          class="h3 link-warning text-decoration-none fw-semibold"
+          class="h4 link-warning text-decoration-none fw-semibold"
         >{{ filme.titulo }}</a>
 
         <p class="card-text fs-4 pt-5 text-white font-monospace">{{ filme.visaoGeral }}</p>
