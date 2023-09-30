@@ -11,10 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class FilmeService implements OnInit {
-  private FILMES_POPULARES_API_URL = `https://api.themoviedb.org/3/movie/popular`;
-  private FILMES_BEM_AVALIADOS_API_URL = `https://api.themoviedb.org/3/movie/top_rated`;
-  private FILMES_LANCAMENTOS_API_URL = `https://api.themoviedb.org/3/movie/upcoming`;
-  private FILMES_BUSCA_API_URL = `https://api.themoviedb.org/3/search/movie?query=`;
+  private API_URL = `https://api.themoviedb.org/3/`;
 
   constructor(private http: HttpClient) {}
 
@@ -28,81 +25,82 @@ export class FilmeService implements OnInit {
   }
 
   // METODOS PUBLICOS
-
-  public selecionarFilmesEmAlta(page: string | number): Observable<Filme[]> {
+  public selecionarFilmesEmAlta(page: number): Observable<Filme[]> {
     return this.http
       .get<any>(
-        `${this.FILMES_POPULARES_API_URL}?language=pt-BR&page=`+ page,
+        this.API_URL + `movie/popular?language=pt-BR&page=`+ page,
         this.obterHeaderAutorizacao()
       )
-      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
+      .pipe(
+        map(
+          (obj: any) => this.mapearListaFilmes(obj.results)
+        )
+      );
   }
 
-  public selecionarFilmesBemAvaliados(page: string | number): Observable<Filme[]> {
+  public selecionarFilmesBemAvaliados(page: number): Observable<Filme[]> {
     return this.http
       .get<any>(
-        `${this.FILMES_BEM_AVALIADOS_API_URL}?language=pt-BR&page=`+ page,
+        this.API_URL + `movie/top_rated?language=pt-BR&page=`+ page,
         this.obterHeaderAutorizacao()
       )
-      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
+      .pipe(
+        map(
+          (obj: any) => this.mapearListaFilmes(obj.results)
+        )
+      );
   }
 
-  public selecionarFilmesLancamento(page: string | number): Observable<Filme[]> {
+  public selecionarFilmesLancamento(page: number): Observable<Filme[]> {
     return this.http
       .get<any>(
-        `${this.FILMES_LANCAMENTOS_API_URL}?language=pt-BR&page=`+ page,
+        this.API_URL + `movie/upcoming?language=pt-BR&page=`+ page,
         this.obterHeaderAutorizacao()
       )
-      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
+      .pipe(
+        map(
+          (obj: any) => this.mapearListaFilmes(obj.results)
+        )
+      );
   }
 
   public selecionarFilmePorId(id: number): Observable<DetalhesFilme> {
-    const url = `https://api.themoviedb.org/3/movie/${id}?language=pt-br`;
-    
-    return this.http.get<DetalhesFilme>(
-      `${url}?language=pt-BR`,
-      this.obterHeaderAutorizacao()
-    )
-    .pipe(
-      map(
-        (obj: any) => this.mapearDetalheFilme(obj)
-      )
-    )
-  }
-
-  public selecionarFilmePorNome(query: string): Observable<Filme[]> {
     return this.http
-      .get<any>(
-        this.FILMES_BUSCA_API_URL + query + "&language=pt-BR",
+      .get<DetalhesFilme>(
+        this.API_URL + `movie/${id}?language=pt-br`,
         this.obterHeaderAutorizacao()
       )
-      .pipe(map((obj: any) => this.mapearListaFilmes(obj.results)));
+      .pipe(
+        map(
+          (obj: any) => this.mapearDetalheFilme(obj)
+        )
+      )
   }
 
   public selecionarTrailerFilmePorId(id: number): Observable<TrailerFilme[]> {
-    const url = `https://api.themoviedb.org/3/movie/${id}/videos`;
-    return this.http.get<any>(
-      `${url}?language=pt-BR&page=1`,
-       this.obterHeaderAutorizacao()
-    )
-    .pipe(
-      map(
-        (obj: any) => this.mapearTrailerFilmes(obj.results)
+    return this.http
+      .get<any>(
+         this.API_URL + `movie/${id}/videos?language=pt-BR&page=1`,
+         this.obterHeaderAutorizacao()
       )
-    )
+      .pipe(
+        map(
+          (obj: any) => this.mapearTrailerFilmes(obj.results)
+        )
+      ) 
   }
 
   public selecionarCreditosFilmePorId(id: number): Observable<CreditosFilme[]> {
-    const url = `https://api.themoviedb.org/3/movie/${id}/credits`;
-    return this.http.get<any>(
-      `${url}?language=pt-BR&page=1`,
-       this.obterHeaderAutorizacao()
-    )
-    .pipe(
-      map(
-        (obj: any) =>  this.mapearCreditosFilme(obj.cast)
+    return this.http
+      .get<any>(
+        this.API_URL + `movie/${id}/credits?language=pt-BR&page=1`,
+        this.obterHeaderAutorizacao()
       )
-    )
+      .pipe(
+        map(
+          (obj: any) =>  this.mapearCreditosFilme(obj.cast.concat(obj.crew))
+        )
+      )
   }
 
   public selecionarFilmesPorIds(ids: number[]): Observable<DetalhesFilme[]> {
@@ -110,9 +108,21 @@ export class FilmeService implements OnInit {
     
     return forkJoin(observables);
   }
+  
+  public selecionarFilmePorNome(query: string): Observable<Filme[]> {
+    return this.http
+      .get<any>(
+        this.API_URL + "search/movie?query=" + query + "&language=pt-BR",
+        this.obterHeaderAutorizacao()
+      )
+      .pipe(
+        map(
+          (obj: any) => this.mapearListaFilmes(obj.results)
+        )
+      );
+  }
 
   // METODOS PRIVADOS
-
   private mapearListaFilmes(filmes: any): Filme[] {
     return filmes.map((filme: any) => {
 
