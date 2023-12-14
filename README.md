@@ -13,7 +13,7 @@ Construído por Davi Felipe Borges - @daviborgesfelipe. [LinkedIn](https://www.l
 ### Acessar Detalhes do Filme
 
 * Acessar detalhes do filme conforme seleção do usuario.
-* 
+  
 ### Salvar Filmes Favoritos
 
 * Salvar filme em uma lista de favoritos.
